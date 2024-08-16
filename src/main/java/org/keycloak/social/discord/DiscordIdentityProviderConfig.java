@@ -53,7 +53,7 @@ public class DiscordIdentityProviderConfig extends OAuth2IdentityProviderConfig 
     public Set<String> getAllowedGuildsAsSet() {
         if (hasAllowedGuilds()) {
             String guilds = getConfig().get("allowedGuilds");
-            return Arrays.stream(guilds.split(",")).map(x -> x.trim()).collect(Collectors.toSet());
+            return Arrays.stream(guilds.split(",")).map(String::trim).collect(Collectors.toSet());
         }
         return Collections.emptySet();
     }
