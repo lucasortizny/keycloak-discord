@@ -17,9 +17,11 @@
 
 package org.keycloak.social.discord;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.ws.rs.core.Response;
 import org.jboss.logging.Logger;
+import org.keycloak.broker.oauth.OAuth2IdentityProvider;
 import org.keycloak.broker.oidc.AbstractOAuth2IdentityProvider;
 import org.keycloak.broker.oidc.mappers.AbstractJsonUserAttributeMapper;
 import org.keycloak.broker.provider.BrokeredIdentityContext;
@@ -32,6 +34,7 @@ import org.keycloak.services.ErrorPageException;
 import org.keycloak.services.messages.Messages;
 
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author <a href="mailto:wadahiro@gmail.com">Hiroyuki Wada</a>
@@ -67,13 +70,15 @@ public class DiscordIdentityProvider extends AbstractOAuth2IdentityProvider<Disc
 
     @Override
     protected BrokeredIdentityContext extractIdentityFromProfile(EventBuilder event, JsonNode profile) {
-        BrokeredIdentityContext user = new BrokeredIdentityContext(getJsonProperty(profile, "id"), this.getConfig());
-
+        BrokeredIdentityContext user = new BrokeredIdentityContext(getConfig());
         user.setUsername(getJsonProperty(profile, "username"));
+        user.setFirstName(getJsonProperty(profile, "username"));
+        user.setLastName("");
+        user.setId(getJsonProperty(profile, "id"));
         user.setEmail(getJsonProperty(profile, "email"));
         user.setIdp(this);
 
-        AbstractJsonUserAttributeMapper.storeUserProfileForMapper(user, profile, getConfig().getAlias());
+        AbstractJsonUserAttributeMapper.storeUserProfileForMapper(user, profile, this.getConfig().getAlias());
 
         return user;
     }
