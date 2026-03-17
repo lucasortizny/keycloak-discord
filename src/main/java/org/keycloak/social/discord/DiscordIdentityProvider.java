@@ -17,11 +17,9 @@
 
 package org.keycloak.social.discord;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.ws.rs.core.Response;
 import org.jboss.logging.Logger;
-import org.keycloak.broker.oauth.OAuth2IdentityProvider;
 import org.keycloak.broker.oidc.AbstractOAuth2IdentityProvider;
 import org.keycloak.broker.oidc.mappers.AbstractJsonUserAttributeMapper;
 import org.keycloak.broker.provider.BrokeredIdentityContext;
@@ -34,7 +32,6 @@ import org.keycloak.services.ErrorPageException;
 import org.keycloak.services.messages.Messages;
 
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * @author <a href="mailto:wadahiro@gmail.com">Hiroyuki Wada</a>
