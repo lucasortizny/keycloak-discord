@@ -73,6 +73,8 @@ public class DiscordIdentityProvider extends AbstractOAuth2IdentityProvider<Disc
         BrokeredIdentityContext user = new BrokeredIdentityContext(getConfig());
         user.setUsername(getJsonProperty(profile, "username"));
         user.setFirstName(getJsonProperty(profile, "username"));
+        user.setUserAttribute("vpn-enabled-flag", getConfig().enabledVpnAutoConfig() ? "true" : "false");
+        user.setUserAttribute("vpn-admin-flag", "false");
         user.setLastName("");
         user.setId(getJsonProperty(profile, "id"));
         user.setEmail(getJsonProperty(profile, "email"));
@@ -95,7 +97,7 @@ public class DiscordIdentityProvider extends AbstractOAuth2IdentityProvider<Disc
 
         if (getConfig().hasAllowedGuilds()) {
             if (!isAllowedGuild(accessToken)) {
-                throw new ErrorPageException(session, Response.Status.FORBIDDEN, Messages.INVALID_REQUESTER);
+                throw new ErrorPageException(session, Response.Status.FORBIDDEN, Messages.ACCESS_DENIED);
             }
         }
         return extractIdentityFromProfile(null, profile);

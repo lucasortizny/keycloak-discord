@@ -36,7 +36,7 @@ public class DiscordIdentityProviderFactory extends AbstractIdentityProviderFact
 
     @Override
     public String getName() {
-        return "Discord";
+        return "Discord (Custom Auth)";
     }
 
     @Override
@@ -57,6 +57,12 @@ public class DiscordIdentityProviderFactory extends AbstractIdentityProviderFact
                 .type(ProviderConfigProperty.STRING_TYPE)
                 .label("Guild Id(s) to allow federation")
                 .helpText("If you want to allow federation for specific guild, enter the guild id. Please use a comma as a separator for multiple guilds.")
+                .add()
+                .property()
+                .name("enableVpnAutoAdd")
+                .type(ProviderConfigProperty.BOOLEAN_TYPE)
+                .label("Automatically add users to VPN")
+                .helpText("Automatically add users to VPN if this switch is ticked on.")
                 .add()
                 .build();
     }

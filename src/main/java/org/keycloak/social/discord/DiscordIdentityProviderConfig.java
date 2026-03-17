@@ -49,6 +49,9 @@ public class DiscordIdentityProviderConfig extends OAuth2IdentityProviderConfig 
         String guilds = getConfig().get("allowedGuilds");
         return guilds != null && !guilds.trim().isEmpty();
     }
+    public boolean enabledVpnAutoConfig() {
+        return Boolean.parseBoolean(getConfig().get("enableVpnAutoAdd"));
+    }
 
     public Set<String> getAllowedGuildsAsSet() {
         if (hasAllowedGuilds()) {
